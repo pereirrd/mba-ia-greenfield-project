@@ -1,10 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigType } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { AuthModule } from './auth/auth.module';
-import { VideosModule } from './videos/videos.module';
 import appConfig from './config/app.config';
 import authConfig from './config/auth.config';
 import databaseConfig from './config/database.config';
@@ -14,6 +10,13 @@ import storageConfig from './config/storage.config';
 import swaggerConfig from './config/swagger.config';
 import videoConfig from './config/video.config';
 import { envValidationSchema } from './config/env.validation';
+import { QueueModule } from './queue/queue.module';
+import { StorageModule } from './storage/storage.module';
+import { VideosModule } from './videos/videos.module';
+import { VideoProcessingProcessor } from './videos/video-processing.processor';
+import { Video } from './videos/entities/video.entity';
+import { Channel } from './channels/entities/channel.entity';
+import { User } from './users/entities/user.entity';
 
 @Module({
   imports: [
@@ -46,10 +49,11 @@ import { envValidationSchema } from './config/env.validation';
         synchronize: false,
       }),
     }),
-    AuthModule,
+    TypeOrmModule.forFeature([Video, Channel, User]),
+    StorageModule,
+    QueueModule,
     VideosModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  providers: [VideoProcessingProcessor],
 })
-export class AppModule {}
+export class WorkerModule {}
