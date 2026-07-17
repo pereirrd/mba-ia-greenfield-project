@@ -7,6 +7,9 @@ import {
   InvalidTokenException,
   TokenExpiredException,
   TokenReuseDetectedException,
+  VideoNotFoundException,
+  VideoNotReadyException,
+  VideoTooLargeException,
 } from '../exceptions/domain.exception';
 
 describe('DomainExceptionFilter', () => {
@@ -95,6 +98,36 @@ describe('DomainExceptionFilter', () => {
     expect(mockJson).toHaveBeenCalledWith({
       statusCode: 401,
       error: 'TOKEN_REUSE_DETECTED',
+      message: expect.any(String),
+    });
+  });
+
+  it('maps VideoNotFoundException to 404 with VIDEO_NOT_FOUND', () => {
+    filter.catch(new VideoNotFoundException(), mockHost);
+    expect(mockStatus).toHaveBeenCalledWith(404);
+    expect(mockJson).toHaveBeenCalledWith({
+      statusCode: 404,
+      error: 'VIDEO_NOT_FOUND',
+      message: expect.any(String),
+    });
+  });
+
+  it('maps VideoNotReadyException to 409 with VIDEO_NOT_READY', () => {
+    filter.catch(new VideoNotReadyException(), mockHost);
+    expect(mockStatus).toHaveBeenCalledWith(409);
+    expect(mockJson).toHaveBeenCalledWith({
+      statusCode: 409,
+      error: 'VIDEO_NOT_READY',
+      message: expect.any(String),
+    });
+  });
+
+  it('maps VideoTooLargeException to 400 with VIDEO_TOO_LARGE', () => {
+    filter.catch(new VideoTooLargeException(), mockHost);
+    expect(mockStatus).toHaveBeenCalledWith(400);
+    expect(mockJson).toHaveBeenCalledWith({
+      statusCode: 400,
+      error: 'VIDEO_TOO_LARGE',
       message: expect.any(String),
     });
   });

@@ -26,10 +26,10 @@ libs:
     fetched_at: "2026-07-17T13:46:00+00:00"
     notes: "getSignedUrl for UploadPartCommand / PutObjectCommand"
   nanoid:
-    version: "^5.1.0"
+    version: "n/a (not installed)"
     context7_id: "/ai/nanoid"
     fetched_at: "2026-07-17T13:46:00+00:00"
-    notes: "nanoid(11) for videos.public_id"
+    notes: "Decision revised to Node crypto.randomBytes with nanoid-compatible alphabet (generatePublicId) to avoid ESM-only nanoid@5 under Jest"
   fluent-ffmpeg:
     version: "^2.1.3"
     context7_id: "/fluent-ffmpeg/node-fluent-ffmpeg"
@@ -57,9 +57,9 @@ Context7 MCP was unavailable in this agent environment; versions and APIs were c
 - Read path: `GetObjectCommand` with optional `Range: bytes=start-end`; body is a Readable stream.
 - Thumbnails: `PutObjectCommand` with `ContentType: image/jpeg`.
 
-## nanoid
+## nanoid / public id
 
-- `import { nanoid } from 'nanoid'` — generate 11-char URL-safe `public_id`; rely on UNIQUE constraint + retry on collision.
+- Implementation uses `generatePublicId()` (`src/videos/public-id.util.ts`) with Node `crypto.randomBytes` and the nanoid URL-safe alphabet — same uniqueness strategy without the ESM-only `nanoid@5` package under Jest.
 
 ## fluent-ffmpeg
 

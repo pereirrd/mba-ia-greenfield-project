@@ -48,3 +48,47 @@ export class TokenReuseDetectedException extends DomainException {
     );
   }
 }
+
+export class VideoNotFoundException extends DomainException {
+  constructor() {
+    super('VIDEO_NOT_FOUND', 404, 'Video not found');
+  }
+}
+
+export class VideoNotOwnedException extends DomainException {
+  constructor() {
+    super('VIDEO_NOT_OWNED', 403, 'You do not own this video');
+  }
+}
+
+export class VideoInvalidStatusException extends DomainException {
+  constructor(message = 'Video is not in a valid status for this operation') {
+    super('VIDEO_INVALID_STATUS', 409, message);
+  }
+}
+
+export class VideoNotReadyException extends DomainException {
+  constructor() {
+    super(
+      'VIDEO_NOT_READY',
+      409,
+      'Video is not ready for playback or download',
+    );
+  }
+}
+
+export class VideoTooLargeException extends DomainException {
+  constructor() {
+    super(
+      'VIDEO_TOO_LARGE',
+      400,
+      'Video exceeds the maximum allowed size of 10GB',
+    );
+  }
+}
+
+export class VideoUploadNotFoundException extends DomainException {
+  constructor() {
+    super('VIDEO_UPLOAD_NOT_FOUND', 404, 'Multipart upload session not found');
+  }
+}

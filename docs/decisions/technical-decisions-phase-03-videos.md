@@ -167,11 +167,11 @@ _Subprojects in scope:_
 - **Pros:** Very short.
 - **Cons:** Enumerable; leakage of upload volume; more custom code.
 
-**Recommendation:** Option A — `public_id` via nanoid with UNIQUE index; UUID stays internal.
+**Recommendation:** Option A — `public_id` via URL-safe random id (nanoid alphabet / crypto) with UNIQUE index; UUID stays internal.
 
-**Decision:** A (`public_id` nanoid + unique constraint)
+**Decision:** A (`public_id` URL-safe random + unique constraint)
 
-**Libraries:** `nanoid@^5`
+**Libraries:** — (Node `crypto.randomBytes`; nanoid alphabet, no extra dependency to keep Jest/CJS compatible)
 
 ---
 
@@ -243,6 +243,6 @@ _Subprojects in scope:_
 | TD-02 | Backend | Large upload strategy | Presigned multipart to MinIO/S3 | A |
 | TD-03 | Backend | Storage layout/client | Single bucket + AWS SDK v3 | A |
 | TD-04 | Backend | Worker + FFmpeg | Separate Nest worker container | A |
-| TD-05 | Backend | Unique public URL | nanoid `public_id` | A |
+| TD-05 | Backend | Unique public URL | crypto public_id (nanoid alphabet) | A |
 | TD-06 | Backend | Streaming/download | API Range 206 + download | A |
 | TD-07 | Backend | Status lifecycle | draft→processing→ready\|failed | A |

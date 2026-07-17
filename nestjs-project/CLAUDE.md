@@ -34,6 +34,18 @@ docker compose exec nestjs-api npm run start:dev
 Services:
 - `nestjs-api` — NestJS API, port `3000`
 - `db` — PostgreSQL 17, port `5432`, database `streamtube`, user/password `streamtube`
+- `mailpit` — SMTP UI (1025/8025)
+- `redis` — BullMQ broker, port `6379`
+- `minio` — S3-compatible object storage (9000 API / 9001 console)
+- `video-worker` — Nest application context consuming `video-processing` with system FFmpeg
+
+## Videos Module
+
+- Domain module: `src/videos/` (controller, service, entity, BullMQ producer)
+- Storage: `src/storage/StorageService` (multipart + GetObject Range)
+- Worker entry: `npm run start:worker` → `dist/worker.main.js` (Compose: `video-worker`)
+- Upload path never proxies file bytes through the API — clients PUT parts to MinIO via presigned URLs (supports up to 10GB)
+- Public id: URL-safe random `public_id` (unique) used in watch/stream/download URLs
 
 All verification and teardown commands run on the **host machine**:
 
@@ -62,6 +74,7 @@ docker compose down
 npm run start:dev                        # Dev server with hot-reload
 npm run build                            # Compile to dist/
 npm run start:prod                       # Run compiled build
+npm run start:worker                     # Video worker (FFmpeg consumer)
 
 npm test                                 # Unit tests
 npm run test:watch                       # Unit tests in watch mode
