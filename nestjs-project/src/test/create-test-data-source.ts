@@ -1,4 +1,11 @@
-import { DataSource, EntitySchema, MigrationInterface } from 'typeorm';
+import {
+  DataSource,
+  EntitySchema,
+  MigrationInterface,
+  ObjectLiteral,
+} from 'typeorm';
+
+type EntityClass = new (...args: never[]) => ObjectLiteral;
 
 interface TestDataSourceOptions {
   synchronize?: boolean;
@@ -6,7 +13,7 @@ interface TestDataSourceOptions {
 }
 
 export function createTestDataSource(
-  entities: (Function | string | EntitySchema<any>)[],
+  entities: (EntityClass | string | EntitySchema<ObjectLiteral>)[],
   options: TestDataSourceOptions = {},
 ): DataSource {
   const { synchronize = true, migrations } = options;

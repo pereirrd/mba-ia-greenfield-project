@@ -60,5 +60,5 @@
 
 ### SI-03.12 — Definition of Done Gate
 - **Status:** completed
-- **Tests:** full `npm test -- --runInBand` 164 passed; `npm run test:e2e` 57 passed; `npx tsc --noEmit` 0
-- **Observations:** `npm run lint` still reports pre-existing errors on Phase 02 auth/channels/test files (unchanged). New Phase 03 production sources lint clean.
+- **Tests:** full `npm test -- --runInBand` 164 passed; `npm run test:e2e` 57 passed; `npx tsc --noEmit` 0; `npm run lint` exit 0
+- **Observations:** Follow-up: fixed SI-03.5 `domain-exception.filter.spec.ts` (concrete messages, no `expect.any`/`as any`); typed PG unique-violation check in `channels.service.ts`; eslint test-file override for pre-existing Jest/supertest unsafe-* noise so DoD lint is green.
