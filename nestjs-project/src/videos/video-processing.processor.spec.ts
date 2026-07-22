@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-argument */
 import { Job } from 'bullmq';
 import { VideoProcessingProcessor } from './video-processing.processor';
 import { VIDEO_PROCESS_JOB } from './video-processing.constants';

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { VideosService } from './videos.service';
 import { VideoStatus } from './video-status.enum';
 import { VideoTooLargeException } from '../common/exceptions/domain.exception';

@@ -30,9 +30,9 @@ describe('DomainExceptionFilter', () => {
       }),
       getArgs: () => [],
       getArgByIndex: () => null,
-      switchToRpc: () => ({}) as any,
-      switchToWs: () => ({}) as any,
-      getType: () => 'http',
+      switchToRpc: () => ({}),
+      switchToWs: () => ({}),
+      getType: () => 'http' as const,
     } as unknown as ArgumentsHost;
   });
 
@@ -54,7 +54,7 @@ describe('DomainExceptionFilter', () => {
     expect(mockJson).toHaveBeenCalledWith({
       statusCode: 401,
       error: 'INVALID_CREDENTIALS',
-      message: expect.any(String),
+      message: 'Invalid email or password',
     });
   });
 
@@ -65,7 +65,7 @@ describe('DomainExceptionFilter', () => {
     expect(mockJson).toHaveBeenCalledWith({
       statusCode: 403,
       error: 'EMAIL_NOT_CONFIRMED',
-      message: expect.any(String),
+      message: 'Email address has not been confirmed',
     });
   });
 
@@ -76,7 +76,7 @@ describe('DomainExceptionFilter', () => {
     expect(mockJson).toHaveBeenCalledWith({
       statusCode: 401,
       error: 'INVALID_TOKEN',
-      message: expect.any(String),
+      message: 'Token is invalid',
     });
   });
 
@@ -87,7 +87,7 @@ describe('DomainExceptionFilter', () => {
     expect(mockJson).toHaveBeenCalledWith({
       statusCode: 401,
       error: 'TOKEN_EXPIRED',
-      message: expect.any(String),
+      message: 'Token has expired',
     });
   });
 
@@ -98,7 +98,7 @@ describe('DomainExceptionFilter', () => {
     expect(mockJson).toHaveBeenCalledWith({
       statusCode: 401,
       error: 'TOKEN_REUSE_DETECTED',
-      message: expect.any(String),
+      message: 'Token reuse detected — all sessions revoked',
     });
   });
 
@@ -108,7 +108,7 @@ describe('DomainExceptionFilter', () => {
     expect(mockJson).toHaveBeenCalledWith({
       statusCode: 404,
       error: 'VIDEO_NOT_FOUND',
-      message: expect.any(String),
+      message: 'Video not found',
     });
   });
 
@@ -118,7 +118,7 @@ describe('DomainExceptionFilter', () => {
     expect(mockJson).toHaveBeenCalledWith({
       statusCode: 409,
       error: 'VIDEO_NOT_READY',
-      message: expect.any(String),
+      message: 'Video is not ready for playback or download',
     });
   });
 
@@ -128,7 +128,7 @@ describe('DomainExceptionFilter', () => {
     expect(mockJson).toHaveBeenCalledWith({
       statusCode: 400,
       error: 'VIDEO_TOO_LARGE',
-      message: expect.any(String),
+      message: 'Video exceeds the maximum allowed size of 10GB',
     });
   });
 });
